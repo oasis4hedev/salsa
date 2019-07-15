@@ -152,6 +152,7 @@ ActiveRecord::Schema.define(version: 20190712081735) do
     t.string "idp_cert_fingerprint_algorithm"
     t.string "authn_context"
     t.string "lms_account_id"
+    t.string "time_zone"
     t.string "period_meta_key"
     t.index ["depth"], name: "index_organizations_on_depth"
     t.index ["lft"], name: "index_organizations_on_lft"
@@ -194,7 +195,6 @@ ActiveRecord::Schema.define(version: 20190712081735) do
     t.datetime "updated_at"
     t.json "report_filters"
     t.boolean "is_archived", default: false
-    t.string "archive_url"
     t.index ["organization_id"], name: "index_report_archives_on_organization_id"
   end
 
