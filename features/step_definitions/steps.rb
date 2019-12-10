@@ -411,9 +411,9 @@ Given(/^I am on the organization (\w+) page$/) do |action|
   when /index/
     visit organizations_path
   when /edit/
-    visit edit_organization_path(id: @organization[:id], org_path: @organization.slug, slug: @organization.slug)
+    visit edit_organization_path(id: @organization[:id], slug: @organization.slug)
   when /new/
-    visit new_organization_path(org_path: @organization.slug)
+    visit new_organization_path
   when /delete/
     page.driver.delete(organization_path(@organization.slug))
   end
@@ -441,7 +441,7 @@ Then(/^the "(.*?)" should be (present|absent)$/) do |class_name, should_be|
 end
 
 Given(/^I search documents for "(.*?)"$/) do |search|
-  visit documents_search_path(org_path: @organization.slug, slug: @organization.full_slug, q: search)
+  visit documents_search_path(slug: @organization.full_slug, q: search)
 end
 
 Given(/^the "(.*?)" has:$/) do |class_name, table|

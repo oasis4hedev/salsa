@@ -4,7 +4,7 @@ require 'zip'
 class Admin::AuditorController < ApplicationController
   
   before_action :require_auditor_role
-  before_action -> { @org = get_org }, only: [:report, :reports, :build]
+  before_action -> { @org = get_org }
   before_action -> { get_org_time_zone @org }, only: [:report, :reports, :build]
 
   def download

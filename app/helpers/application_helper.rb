@@ -292,8 +292,10 @@ module ApplicationHelper
   end
 
   def find_org_by_path path
-    path = get_org_path unless path
-    organization = Organization.find { |o| o.full_org_path == path }
+    path ||= get_org_path
+    path.split(/\b(?=\/)/).inject(nil) do |org, slug|
+      Organization.find_by!(parent: org, slug: slug)
+    end
   end
 
   def redirect_port
@@ -316,7 +318,7 @@ module ApplicationHelper
   end
 
   def get_org_path
-    return request.env['SERVER_NAME'] + '/' + params[:org_path] if params[:org_path] && Organization.all.map(&:path).include?(params[:org_path])
+    return request.env['SERVER_NAME'] + '/' + params[:org_path] if params[:org_path]
     return request.env['SERVER_NAME']
   end
 
