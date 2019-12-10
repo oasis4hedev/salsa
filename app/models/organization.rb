@@ -102,17 +102,18 @@ class Organization < ApplicationRecord
     super(val == "" ? nil : val)
   end
 
-  def setting(setting, default=nil)
-    value = default
-    org = self.self_and_ancestors.where.not("#{setting}": nil).reorder(:depth).last
-    if org
-      value = org[setting]
-    end
-    return value
+  def self_or_ancestors_setting(setting)
+    self.self_and_ancestors.where.not( setting=>nil ).reorder(:depth).last&.read_attribute(setting)
+  end
+
+  def setting(setting)
+    @settings ||= {}
+    @settings[setting.to_s] ||= self_or_ancestors_setting setting
   end
 
   def root_org_setting(setting)
-    return self.root[setting]
+    @root_settings ||= {}
+    @root_settings[setting.to_s] ||= self.root[setting]
   end
 
   def self.descendants
