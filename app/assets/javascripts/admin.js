@@ -99,16 +99,16 @@ function republish(token, sources, counter, errors) {
       settings.data = jquery('#page-data').html();
 
       var document_version = jquery('[data-document-version]').attr('data-document-version');
-      settings.url = settings.url + '&document_version=' + document_version + "&batch_token=" + token;
+      settings.url = settings.url + '&document_version=' + document_version + "&batch_token=" + token + "&canvas=true";
 
       run_document_meta_in_iframe(settings)
 
       // should be save to LMS...
-      var tb_send_canvas = jquery('#tb_send_canvas');
-      if ( tb_send_canvas.is(':visible') ) {
-        tb_send_canvas.attr("href", tb_send_canvas.attr("href") + "&batch_token=" + token )
-        jquery('#tb_send_canvas').trigger('click')
-      } 
+      // var tb_send_canvas = jquery('#tb_send_canvas');
+      // if ( tb_send_canvas.is(':visible') ) {
+      //   tb_send_canvas.attr("href", tb_send_canvas.attr("href") + "&batch_token=" + token )
+      //   jquery('#tb_send_canvas').trigger('click')
+      // } 
       // if($('#tb_send_canvas:visible')).trigger('click');
     });
 
