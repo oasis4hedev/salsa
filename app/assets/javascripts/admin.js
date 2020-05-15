@@ -86,7 +86,6 @@ function republish(token, sources, counter, errors) {
   iframe.onload = function() {
     var jquery = iframe.contentWindow.jQuery;
     var a = jquery('#tb_share');
-    var tb_send_canvas = jquery('#tb_send_canvas:visible');
 
     a.off('ajax:beforeSend');
 
@@ -105,6 +104,11 @@ function republish(token, sources, counter, errors) {
       run_document_meta_in_iframe(settings)
 
       // should be save to LMS...
+      var tb_send_canvas = jquery('#tb_send_canvas');
+      if ( tb_send_canvas.is(':visible') ) {
+        tb_send_canvas.attr("href", tb_send_canvas.attr("href") + "&batch_token=" + token )
+        jquery('#tb_send_canvas').trigger('click')
+      } 
       // if($('#tb_send_canvas:visible')).trigger('click');
     });
 
