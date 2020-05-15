@@ -187,7 +187,7 @@ $(function() {
   $('#tb_send_canvas').on('ajax:beforeSend', function(event, xhr, settings) {
     $(this).html('Publishing...').prepend($('<span class="in-progress"></span>'));
 
-    course_id = $('#editor_view').data('lmsCourse').id;
+    course_id = $('#editor_view').data('lmsCourse').id || $('#editor_view').data('lmsCourse').course_id;
     settings.url = settings.url + "&canvas_course_id=" + course_id;
 
     var salsaDocument = $('#page-data').clone();

@@ -8,7 +8,7 @@
 
     <%= form_tag admin_auditor_generate_report_path(org_path: params[:org_path]), class: 'form form-inline' do %>
         <div class="form-group">
-            <%= label_tag :account_filter, 'Semester' %>
+            <%= label_tag :account_filter, 'Time Period' %>
             <% if @org.root_org_setting("reports_use_document_meta") %>
               <%= text_field_tag :account_filter, @report.report_filters["account_filter"], class: 'form-control' %>
             <% else %>

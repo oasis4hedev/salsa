@@ -86,6 +86,7 @@ function republish(token, sources, counter, errors) {
   iframe.onload = function() {
     var jquery = iframe.contentWindow.jQuery;
     var a = jquery('#tb_share');
+    var tb_send_canvas = jquery('#tb_send_canvas:visible');
 
     a.off('ajax:beforeSend');
 
@@ -104,7 +105,7 @@ function republish(token, sources, counter, errors) {
       run_document_meta_in_iframe(settings)
 
       // should be save to LMS...
-      $('#tb_send_canvas:visible').trigger('click');
+      // if($('#tb_send_canvas:visible')).trigger('click');
     });
 
     a.on('ajax:success', function(event,data) {
@@ -126,6 +127,7 @@ function republish(token, sources, counter, errors) {
 
       republish(token, sources, counter, errors);
     });
+
     a.trigger('click.rails');
 
   }

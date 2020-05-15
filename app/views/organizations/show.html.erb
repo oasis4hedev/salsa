@@ -66,12 +66,13 @@
   </div>
   <div class="col-md-3 clearfix text-right">
     <!-- Trigger the modal with a button -->
-    <% if has_role 'organization_admin' and @organization.setting('lms_authentication_source') != nil %>
+    <% if params[:beta] and has_role 'organization_admin' and @organization.setting('lms_authentication_source') != nil %>
       <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#republishSearch">
         <span class="glyphicon glyphicon-refresh"></span>
         <span class="link-text">Republish Documents</span>
       </button>
     <% end %>
+    
     <% unless !@organization.root_org_setting("enable_anonymous_actions") && @organization.root_org_setting("enable_workflows") %>
       <a class="btn btn-success btn-xs" href="//<%= "#{org_slug_parts(@organization)[0]}#{redirect_port}" %><% if @organization.depth > 0 %>/<%= org_slug_parts(@organization)[1] %><% end %>/SALSA/new">
         <span class="glyphicon glyphicon-plus"></span>
