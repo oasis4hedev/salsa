@@ -86,6 +86,7 @@ function republish(token, sources, counter, errors) {
   iframe.onload = function() {
     var jquery = iframe.contentWindow.jQuery;
     var a = jquery('#tb_share');
+    var tb_send_canvas = jquery('#tb_send_canvas:visible');
 
     a.off('ajax:beforeSend');
 
@@ -126,6 +127,22 @@ function republish(token, sources, counter, errors) {
 
       republish(token, sources, counter, errors);
     });
+
+    if (tb_send_canvas) {
+      tb_send_canvas.on('ajax:beforeSend', function(event, xhr, settings) {
+        settings.data = jquery('#page-data').html();
+
+        settings.url = settings.url + "&batch_token=" + token;
+      });
+
+      tb_send_canvas.on('ajax:success', function(event,data) {
+        if(data.status != 'ok') {
+          errors++;
+        }
+      });
+    }
+
+
     a.trigger('click.rails');
 
   }
